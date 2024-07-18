@@ -1,0 +1,5 @@
+---
+- hosts: web
+  become: true
+  tasks: 
+  - user: name=coss

@@ -1,0 +1,11 @@
+---
+- name: Create User
+  hosts: web
+  become: true
+  vars_files:
+  - coss.yaml
+
+  tasks : 
+  - name: Creating a user {{user}}
+    user:
+      name: "{{user}}" 

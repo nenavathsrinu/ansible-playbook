@@ -1,0 +1,32 @@
+---
+- name: setup tomcat
+  hosts: web
+  become: true
+  tasks:
+    - name: install java on redhat
+      yum:
+        name: java
+        state: installed
+
+    - name: download tomcat
+      get_url:
+        url: https://dlcdn.apache.org/tomcat/tomcat-10/v10.1.26/bin/apache-tomcat-10.1.26.tar.gz
+        dest: /opt
+
+    - name: Extract tomcat
+      unarchive:
+        src: /opt/apache-tomcat-10.1.26.tar.gz
+        dest: /opt
+        remote_src: yes
+
+    - name: Give Executable permission
+      file:
+        path: /opt/apache-tomcat-10.1.26/bin/startup.sh
+        mode: 777
+
+    - name: Start the tomcat service
+      shell: nohup ./startup.sh
+      args:
+        chdir: /opt/apache-tomcat-10.1.26/bin
+
+

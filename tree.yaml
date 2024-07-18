@@ -1,0 +1,9 @@
+---
+- name: This playbook installs packages
+  hosts: web
+  become: true
+  tasks:
+  - name: insall packages
+    yum:
+      name: tree
+      state: installed

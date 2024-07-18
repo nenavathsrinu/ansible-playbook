@@ -1,0 +1,12 @@
+---
+- name: this playbook copy index.html
+  hosts: web
+  become: true
+  tasks:
+  - name: copy file from server to nodes "index.html"
+    copy: 
+     src: /home/ansadmin/index.html
+     dest: /home/ansadmin/
+     mode: 0700
+     owner: coss
+     group: root

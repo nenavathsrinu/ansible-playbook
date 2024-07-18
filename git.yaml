@@ -1,0 +1,9 @@
+---
+- name: This playbook installs packages
+  hosts: web
+  become: true
+  tasks:
+  - name: insall git packages
+    yum:
+      name: git
+      state: installed

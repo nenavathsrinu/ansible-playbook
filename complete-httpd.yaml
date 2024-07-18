@@ -1,0 +1,42 @@
+---
+- name: This playbook installs Apache and copies a file
+  hosts: web
+  become: true
+
+  tasks:
+    - name: Installing httpd package on RedHat
+      yum:
+        name: httpd
+        state: installed
+      when: ansible_os_family == "RedHat"
+
+    - name: Installing apache2 package on Debian
+      apt:
+        name: apache2
+        state: present
+      when: ansible_os_family == "Debian"
+
+    - name: Copy file for httpd
+      copy:
+        src: /home/ansadmin/index.html
+        dest: /var/www/html/
+      when: ansible_os_family == "RedHat"
+
+    - name: Start httpd service
+      service:
+        name: httpd
+        state: started
+      when: ansible_os_family == "RedHat"
+
+    - name: Copy file for apache2
+      copy:
+        src: /home/ansadmin/index.html
+        dest: /var/www/html/
+      when: ansible_os_family == "Debian"
+
+    - name: Start apache2 service
+      service:
+        name: apache2
+        state: started
+      when: ansible_os_family == "Debian"
+
